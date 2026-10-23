@@ -56,6 +56,32 @@ void main() {
   );
 
   blocTest<MenuCubit, MenuState>(
+    'select stores the picked item; null clears it',
+    build: () => MenuCubit(_FakeRepository()),
+    seed: () => const MenuLoaded(
+      workspaces: [sales, hr],
+      current: sales,
+      config: AppConfig(appTitle: 'sales', menus: []),
+    ),
+    act: (cubit) => cubit
+      ..select(const MenuItem(id: 'a', title: 'A'))
+      ..select(null),
+    expect: () => [
+      const MenuLoaded(
+        workspaces: [sales, hr],
+        current: sales,
+        config: AppConfig(appTitle: 'sales', menus: []),
+        selected: MenuItem(id: 'a', title: 'A'),
+      ),
+      const MenuLoaded(
+        workspaces: [sales, hr],
+        current: sales,
+        config: AppConfig(appTitle: 'sales', menus: []),
+      ),
+    ],
+  );
+
+  blocTest<MenuCubit, MenuState>(
     'load failure emits error',
     build: () => MenuCubit(_FakeRepository()..fail = true),
     act: (cubit) => cubit.load(),

@@ -17,16 +17,34 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('menu → sub-menu → form: required check, reset, submit', (
+  Future<void> openDrawer(WidgetTester tester) async {
+    await tester.tap(find.byTooltip('Open navigation menu'));
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('starts with a hint to pick from the menu', (tester) async {
+    await startApp(tester);
+    expect(find.text('Sales & CRM'), findsOneWidget);
+    expect(find.text('Pick an option from the menu'), findsOneWidget);
+
+    await tester.tap(find.text('Open menu'));
+    await tester.pumpAndSettle();
+    expect(find.byType(Drawer), findsOneWidget);
+  });
+
+  testWidgets('drawer → sub-menu → form: required check, reset, submit', (
     tester,
   ) async {
     await startApp(tester);
-    expect(find.text('Sales & CRM'), findsOneWidget);
+    await openDrawer(tester);
 
     await tester.tap(find.text('Customers'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Add Customer'));
     await tester.pumpAndSettle();
+
+    expect(find.byType(Drawer), findsNothing, reason: 'drawer closes');
+    expect(find.text('New Customer'), findsOneWidget, reason: 'app bar title');
     expect(find.byType(TextFormField), findsNWidgets(4));
 
     await tester.tap(find.text('Save'));
@@ -47,7 +65,22 @@ void main() {
     expect(find.text('New Customer submitted'), findsOneWidget);
   });
 
-  testWidgets('switching workspace shows its menus', (tester) async {
+  testWidgets('cancel returns to the hint', (tester) async {
+    await startApp(tester);
+    await openDrawer(tester);
+    await tester.tap(find.text('Customers'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Customer Feedback'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pick an option from the menu'), findsOneWidget);
+  });
+
+  testWidgets('switching workspace shows its menus in the drawer', (
+    tester,
+  ) async {
     await startApp(tester);
 
     await tester.tap(find.byTooltip('Switch workspace'));
@@ -55,7 +88,8 @@ void main() {
     await tester.tap(find.text('HR Portal'));
     await tester.pumpAndSettle();
 
-    expect(find.text('HR Portal'), findsOneWidget);
+    expect(find.text('Pick an option from the menu'), findsOneWidget);
+    await openDrawer(tester);
     expect(find.text('Employees'), findsOneWidget);
   });
 }

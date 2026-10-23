@@ -16,14 +16,18 @@ final class MenuLoaded extends MenuState {
   final Workspace current;
   final AppConfig config;
 
+  /// Menu item picked from the drawer; `null` shows the "pick from menu" hint.
+  final MenuItem? selected;
+
   const MenuLoaded({
     required this.workspaces,
     required this.current,
     required this.config,
+    this.selected,
   });
 
   @override
-  List<Object?> get props => [workspaces, current, config];
+  List<Object?> get props => [workspaces, current, config, selected];
 }
 
 final class MenuError extends MenuState {

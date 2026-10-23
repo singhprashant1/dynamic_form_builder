@@ -45,7 +45,7 @@ lib/
 ├── domain/                         entities + MenuRepository interface
 ├── data/                           JsonDataSource (reads asset) + MenuRepositoryImpl (JSON → entities)
 └── presentation/
-    ├── cubit/                      MenuCubit: loading / loaded / error
-    ├── pages/                      HomePage, MenuPage (list), FormPage
-    └── widgets/                    DynamicField, app_icons
+    ├── cubit/                      MenuCubit: loading / loaded / error + selected item
+    ├── pages/                      HomePage: drawer menu, selected form in the body
+    └── widgets/                    MenuDrawer, FormView, DynamicField, app_icons
 ```

@@ -34,6 +34,20 @@ class MenuCubit extends Cubit<MenuState> {
     }
   }
 
+  /// Shows [item]'s form on the home screen; `null` clears it.
+  void select(MenuItem? item) {
+    final s = state;
+    if (s is! MenuLoaded) return;
+    emit(
+      MenuLoaded(
+        workspaces: s.workspaces,
+        current: s.current,
+        config: s.config,
+        selected: item,
+      ),
+    );
+  }
+
   Future<void> _open(List<Workspace> workspaces, Workspace workspace) async {
     final config = await _repository.getAppConfig(workspace.id);
     emit(
