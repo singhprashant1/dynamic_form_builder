@@ -1,0 +1,284 @@
+{
+  "appTitle": "Sales & CRM",
+  "layout": "grid",
+  "menus": [
+    {
+      "id": "customer",
+      "title": "Customers",
+      "description": "Add, search and gather feedback",
+      "icon": "people",
+      "color": "#3F51B5",
+      "layout": "list",
+      "subMenus": [
+        {
+          "id": "customer_add",
+          "title": "Add Customer",
+          "description": "Create a new customer record",
+          "icon": "person_add",
+          "form": {
+            "title": "New Customer",
+            "description": "Fields marked * are required.",
+            "fields": [
+              { "key": "name", "type": "text", "label": "Full Name", "hint": "Enter full name", "icon": "person", "required": true, "minLength": 3 },
+              { "key": "email", "type": "email", "label": "Email", "hint": "name@example.com", "icon": "email", "required": true },
+              { "key": "phone", "type": "phone", "label": "Phone", "hint": "10 digit number", "icon": "phone", "required": true, "pattern": "^[0-9]{10}$", "patternMessage": "Enter a valid 10 digit number" },
+              { "key": "address", "type": "multiline", "label": "Address", "hint": "Street, City, ZIP", "icon": "home", "maxLines": 3 }
+            ],
+            "buttons": [
+              { "label": "Reset", "action": "reset", "style": "outlined", "icon": "refresh" },
+              {
+                "label": "Save",
+                "action": "submit",
+                "style": "filled",
+                "icon": "save",
+                "api": { "endpoint": "/api/customers", "method": "POST", "successMessage": "Customer saved successfully" }
+              }
+            ]
+          }
+        },
+        {
+          "id": "customer_search",
+          "title": "Search Customer",
+          "description": "Find by name or email",
+          "icon": "search",
+          "form": {
+            "title": "Search",
+            "fields": [
+              { "key": "query", "type": "text", "label": "Name or Email", "icon": "search", "required": true }
+            ],
+            "buttons": [
+              {
+                "label": "Search",
+                "action": "submit",
+                "style": "filled",
+                "icon": "search",
+                "api": { "endpoint": "/api/customers/search", "method": "GET", "successMessage": "3 customers found" }
+              }
+            ]
+          }
+        },
+        {
+          "id": "customer_feedback",
+          "title": "Customer Feedback",
+          "description": "Log feedback from a call or visit",
+          "icon": "feedback",
+          "form": {
+            "title": "Feedback",
+            "fields": [
+              { "key": "customerEmail", "type": "email", "label": "Customer Email", "icon": "email", "required": true },
+              { "key": "rating", "type": "number", "label": "Rating (1-5)", "icon": "star", "required": true, "pattern": "^[1-5]$", "patternMessage": "Enter a number from 1 to 5" },
+              { "key": "comments", "type": "multiline", "label": "Comments", "icon": "notes", "maxLength": 500, "maxLines": 5 }
+            ],
+            "buttons": [
+              { "label": "Cancel", "action": "cancel", "style": "text" },
+              {
+                "label": "Submit",
+                "action": "submit",
+                "style": "filled",
+                "icon": "send",
+                "api": { "endpoint": "/api/feedback", "method": "POST", "successMessage": "Thanks! Feedback recorded" }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "orders",
+      "title": "Orders",
+      "description": "Create, track and report",
+      "icon": "shopping_cart",
+      "color": "#F4511E",
+      "layout": "tabs",
+      "subMenus": [
+        {
+          "id": "orders_new",
+          "title": "New Order",
+          "icon": "add_shopping_cart",
+          "form": {
+            "title": "Create Order",
+            "fields": [
+              { "key": "productCode", "type": "text", "label": "Product Code", "icon": "qr_code", "required": true },
+              { "key": "quantity", "type": "number", "label": "Quantity", "icon": "numbers", "required": true, "initialValue": "1" },
+              { "key": "notes", "type": "multiline", "label": "Notes", "icon": "notes", "maxLines": 4 }
+            ],
+            "buttons": [
+              { "label": "Reset", "action": "reset", "style": "outlined", "icon": "refresh" },
+              {
+                "label": "Place Order",
+                "action": "submit",
+                "style": "filled",
+                "icon": "check",
+                "api": { "endpoint": "/api/orders", "method": "POST", "successMessage": "Order placed" }
+              }
+            ]
+          }
+        },
+        {
+          "id": "orders_track",
+          "title": "Track",
+          "icon": "local_shipping",
+          "form": {
+            "title": "Track Order",
+            "fields": [
+              { "key": "orderId", "type": "text", "label": "Order ID", "hint": "e.g. ORD-10293", "icon": "tag", "required": true, "pattern": "^ORD-\\d+$", "patternMessage": "Format: ORD-<number>" }
+            ],
+            "buttons": [
+              {
+                "label": "Track",
+                "action": "submit",
+                "style": "filled",
+                "icon": "local_shipping",
+                "api": { "endpoint": "/api/orders/track", "method": "GET", "successMessage": "Out for delivery — arriving tomorrow" }
+              }
+            ]
+          }
+        },
+        {
+          "id": "orders_reports",
+          "title": "Reports",
+          "icon": "bar_chart",
+          "layout": "list",
+          "subMenus": [
+            {
+              "id": "orders_reports_daily",
+              "title": "Daily Report",
+              "description": "Orders for a single day",
+              "icon": "today",
+              "form": {
+                "title": "Daily Report",
+                "fields": [
+                  { "key": "date", "type": "text", "label": "Date", "hint": "YYYY-MM-DD", "icon": "calendar_today", "required": true, "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "patternMessage": "Use format YYYY-MM-DD" }
+                ],
+                "buttons": [
+                  {
+                    "label": "Generate",
+                    "action": "submit",
+                    "style": "filled",
+                    "icon": "bar_chart",
+                    "api": { "endpoint": "/api/reports/daily", "method": "GET", "successMessage": "Report generated" }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "orders_reports_monthly",
+              "title": "Monthly Report",
+              "description": "Orders for a month",
+              "icon": "calendar_month",
+              "form": {
+                "title": "Monthly Report",
+                "fields": [
+                  { "key": "month", "type": "text", "label": "Month", "hint": "YYYY-MM", "icon": "calendar_month", "required": true, "pattern": "^\\d{4}-\\d{2}$", "patternMessage": "Use format YYYY-MM" }
+                ],
+                "buttons": [
+                  {
+                    "label": "Generate",
+                    "action": "submit",
+                    "style": "filled",
+                    "icon": "bar_chart",
+                    "api": { "endpoint": "/api/reports/monthly", "method": "GET", "successMessage": "Report generated" }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leads",
+      "title": "Leads",
+      "description": "Prospects and campaigns",
+      "icon": "trending_up",
+      "color": "#00897B",
+      "layout": "expandable",
+      "subMenus": [
+        {
+          "id": "leads_prospects",
+          "title": "Prospects",
+          "description": "Capture new leads",
+          "icon": "person_search",
+          "subMenus": [
+            {
+              "id": "leads_add",
+              "title": "Add Lead",
+              "icon": "person_add",
+              "form": {
+                "title": "Add Lead",
+                "fields": [
+                  { "key": "company", "type": "text", "label": "Company", "icon": "business", "required": true },
+                  { "key": "contact", "type": "text", "label": "Contact Person", "icon": "person", "required": true },
+                  { "key": "email", "type": "email", "label": "Email", "icon": "email", "required": true }
+                ],
+                "buttons": [
+                  { "label": "Cancel", "action": "cancel", "style": "text" },
+                  {
+                    "label": "Save Lead",
+                    "action": "submit",
+                    "style": "filled",
+                    "icon": "save",
+                    "api": { "endpoint": "/api/leads", "method": "POST", "successMessage": "Lead saved" }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "leads_campaigns",
+          "title": "Campaigns",
+          "description": "Email and SMS campaigns",
+          "icon": "campaign",
+          "subMenus": [
+            {
+              "id": "campaign_new",
+              "title": "New Campaign",
+              "icon": "campaign",
+              "form": {
+                "title": "New Campaign",
+                "fields": [
+                  { "key": "name", "type": "text", "label": "Campaign Name", "icon": "campaign", "required": true },
+                  { "key": "message", "type": "multiline", "label": "Message", "icon": "notes", "required": true, "maxLength": 160, "maxLines": 4 }
+                ],
+                "buttons": [
+                  {
+                    "label": "Launch",
+                    "action": "submit",
+                    "style": "filled",
+                    "icon": "send",
+                    "api": { "endpoint": "/api/campaigns", "method": "POST", "successMessage": "Campaign scheduled" }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "title": "Settings",
+      "description": "Account and security",
+      "icon": "settings",
+      "color": "#546E7A",
+      "form": {
+        "title": "Change Password",
+        "description": "Use at least 8 characters.",
+        "fields": [
+          { "key": "currentPassword", "type": "password", "label": "Current Password", "icon": "lock", "required": true },
+          { "key": "newPassword", "type": "password", "label": "New Password", "icon": "lock_reset", "required": true, "minLength": 8 }
+        ],
+        "buttons": [
+          {
+            "label": "Update",
+            "action": "submit",
+            "style": "filled",
+            "icon": "check",
+            "api": { "endpoint": "/api/account/password", "method": "PUT", "successMessage": "Password updated" }
+          }
+        ]
+      }
+    }
+  ]
+}

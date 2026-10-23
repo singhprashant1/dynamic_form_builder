@@ -1,0 +1,36 @@
+{
+  "workspaces": [
+    {
+      "id": "sales",
+      "title": "Sales & CRM",
+      "description": "Customers, orders and leads",
+      "icon": "storefront",
+      "color": "#3F51B5",
+      "source": "assets/data/configs/sales.json"
+    },
+    {
+      "id": "hr",
+      "title": "HR Portal",
+      "description": "Employees, leave and payroll",
+      "icon": "groups",
+      "color": "#00897B",
+      "source": "assets/data/configs/hr.json"
+    },
+    {
+      "id": "inventory",
+      "title": "Inventory",
+      "description": "Products, warehouses and suppliers",
+      "icon": "inventory_2",
+      "color": "#EF6C00",
+      "source": "assets/data/configs/inventory.json"
+    },
+    {
+      "id": "school",
+      "title": "School Admin",
+      "description": "Students, teachers, exams and fees",
+      "icon": "school",
+      "color": "#8E24AA",
+      "source": "assets/data/configs/school.json"
+    }
+  ]
+}

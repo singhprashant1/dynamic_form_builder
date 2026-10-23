@@ -1,0 +1,255 @@
+{
+  "appTitle": "HR Portal",
+  "layout": "list",
+  "menus": [
+    {
+      "id": "employees",
+      "title": "Employees",
+      "description": "Onboarding, directory and profiles",
+      "icon": "badge",
+      "color": "#00897B",
+      "layout": "grid",
+      "subMenus": [
+        {
+          "id": "employee_onboard",
+          "title": "Onboard",
+          "description": "Add a new joiner",
+          "icon": "person_add",
+          "color": "#43A047",
+          "form": {
+            "title": "Onboard Employee",
+            "fields": [
+              { "key": "fullName", "type": "text", "label": "Full Name", "icon": "person", "required": true, "minLength": 3 },
+              { "key": "workEmail", "type": "email", "label": "Work Email", "icon": "email", "required": true },
+              { "key": "department", "type": "text", "label": "Department", "icon": "apartment", "required": true },
+              { "key": "joiningDate", "type": "text", "label": "Joining Date", "hint": "YYYY-MM-DD", "icon": "calendar_today", "required": true, "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "patternMessage": "Use format YYYY-MM-DD" }
+            ],
+            "buttons": [
+              { "label": "Reset", "action": "reset", "style": "outlined", "icon": "refresh" },
+              {
+                "label": "Onboard",
+                "action": "submit",
+                "style": "filled",
+                "icon": "check",
+                "api": { "endpoint": "/api/employees", "method": "POST", "successMessage": "Employee onboarded" }
+              }
+            ]
+          }
+        },
+        {
+          "id": "employee_directory",
+          "title": "Directory",
+          "description": "Look up a colleague",
+          "icon": "contacts",
+          "color": "#1E88E5",
+          "form": {
+            "title": "Employee Directory",
+            "fields": [
+              { "key": "query", "type": "text", "label": "Name or Employee ID", "icon": "search", "required": true }
+            ],
+            "buttons": [
+              {
+                "label": "Search",
+                "action": "submit",
+                "style": "filled",
+                "icon": "search",
+                "api": { "endpoint": "/api/employees/search", "method": "GET", "successMessage": "1 employee found" }
+              }
+            ]
+          }
+        },
+        {
+          "id": "employee_profile",
+          "title": "Update Profile",
+          "description": "Change contact details",
+          "icon": "edit",
+          "color": "#FB8C00",
+          "form": {
+            "title": "Update Profile",
+            "fields": [
+              { "key": "employeeId", "type": "text", "label": "Employee ID", "icon": "badge", "required": true },
+              { "key": "phone", "type": "phone", "label": "Phone", "icon": "phone", "pattern": "^[0-9]{10}$", "patternMessage": "Enter a valid 10 digit number" },
+              { "key": "address", "type": "multiline", "label": "Address", "icon": "home", "maxLines": 3 }
+            ],
+            "buttons": [
+              { "label": "Cancel", "action": "cancel", "style": "text" },
+              {
+                "label": "Save",
+                "action": "submit",
+                "style": "filled",
+                "icon": "save",
+                "api": { "endpoint": "/api/employees/profile", "method": "PATCH", "successMessage": "Profile updated" }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "leave",
+      "title": "Leave",
+      "description": "Apply and check balance",
+      "icon": "beach_access",
+      "color": "#039BE5",
+      "layout": "tabs",
+      "subMenus": [
+        {
+          "id": "leave_apply",
+          "title": "Apply",
+          "icon": "event",
+          "form": {
+            "title": "Apply Leave",
+            "fields": [
+              { "key": "from", "type": "text", "label": "From", "hint": "YYYY-MM-DD", "icon": "calendar_today", "required": true, "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "patternMessage": "Use format YYYY-MM-DD" },
+              { "key": "to", "type": "text", "label": "To", "hint": "YYYY-MM-DD", "icon": "calendar_today", "required": true, "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "patternMessage": "Use format YYYY-MM-DD" },
+              { "key": "reason", "type": "multiline", "label": "Reason", "icon": "notes", "required": true, "maxLines": 3 }
+            ],
+            "buttons": [
+              { "label": "Reset", "action": "reset", "style": "outlined", "icon": "refresh" },
+              {
+                "label": "Apply",
+                "action": "submit",
+                "style": "filled",
+                "icon": "send",
+                "api": { "endpoint": "/api/leave", "method": "POST", "successMessage": "Leave request sent to your manager" }
+              }
+            ]
+          }
+        },
+        {
+          "id": "leave_balance",
+          "title": "Balance",
+          "icon": "pie_chart",
+          "form": {
+            "title": "Leave Balance",
+            "fields": [
+              { "key": "employeeId", "type": "text", "label": "Employee ID", "icon": "badge", "required": true }
+            ],
+            "buttons": [
+              {
+                "label": "Check",
+                "action": "submit",
+                "style": "tonal",
+                "icon": "pie_chart",
+                "api": { "endpoint": "/api/leave/balance", "method": "GET", "successMessage": "12 days available" }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "payroll",
+      "title": "Payroll",
+      "description": "Payslips, tax and claims",
+      "icon": "payments",
+      "color": "#7CB342",
+      "layout": "expandable",
+      "subMenus": [
+        {
+          "id": "payroll_salary",
+          "title": "Salary",
+          "description": "Payslips and tax declarations",
+          "icon": "account_balance",
+          "subMenus": [
+            {
+              "id": "payroll_payslip",
+              "title": "Request Payslip",
+              "icon": "receipt_long",
+              "form": {
+                "title": "Request Payslip",
+                "fields": [
+                  { "key": "month", "type": "text", "label": "Month", "hint": "YYYY-MM", "icon": "calendar_month", "required": true, "pattern": "^\\d{4}-\\d{2}$", "patternMessage": "Use format YYYY-MM" },
+                  { "key": "email", "type": "email", "label": "Send to", "icon": "email", "required": true }
+                ],
+                "buttons": [
+                  {
+                    "label": "Request",
+                    "action": "submit",
+                    "style": "filled",
+                    "icon": "send",
+                    "api": { "endpoint": "/api/payslips", "method": "POST", "successMessage": "Payslip emailed" }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "payroll_tax",
+              "title": "Tax Declaration",
+              "icon": "description",
+              "form": {
+                "title": "Tax Declaration",
+                "fields": [
+                  { "key": "pan", "type": "text", "label": "PAN", "hint": "ABCDE1234F", "icon": "badge", "required": true, "pattern": "^[A-Z]{5}[0-9]{4}[A-Z]$", "patternMessage": "Enter a valid PAN" },
+                  { "key": "investments", "type": "number", "label": "Investments (₹)", "icon": "savings" }
+                ],
+                "buttons": [
+                  {
+                    "label": "Submit",
+                    "action": "submit",
+                    "style": "filled",
+                    "icon": "check",
+                    "api": { "endpoint": "/api/tax", "method": "POST", "successMessage": "Declaration submitted" }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "payroll_claims",
+          "title": "Reimbursement",
+          "description": "Travel and expense claims",
+          "icon": "receipt",
+          "subMenus": [
+            {
+              "id": "payroll_claim",
+              "title": "Submit Claim",
+              "icon": "receipt",
+              "form": {
+                "title": "Submit Claim",
+                "fields": [
+                  { "key": "amount", "type": "number", "label": "Amount (₹)", "icon": "currency_rupee", "required": true },
+                  { "key": "details", "type": "multiline", "label": "Details", "icon": "notes", "required": true, "maxLines": 3 }
+                ],
+                "buttons": [
+                  { "label": "Cancel", "action": "cancel", "style": "text" },
+                  {
+                    "label": "Submit",
+                    "action": "submit",
+                    "style": "filled",
+                    "icon": "send",
+                    "api": { "endpoint": "/api/claims", "method": "POST", "successMessage": "Claim submitted for approval" }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "helpdesk",
+      "title": "Help Desk",
+      "description": "Raise an HR ticket",
+      "icon": "support_agent",
+      "color": "#E53935",
+      "form": {
+        "title": "Raise Ticket",
+        "fields": [
+          { "key": "subject", "type": "text", "label": "Subject", "icon": "title", "required": true },
+          { "key": "description", "type": "multiline", "label": "Description", "icon": "notes", "required": true, "maxLines": 5 }
+        ],
+        "buttons": [
+          {
+            "label": "Raise Ticket",
+            "action": "submit",
+            "style": "filled",
+            "icon": "send",
+            "api": { "endpoint": "/api/tickets", "method": "POST", "successMessage": "Ticket raised" }
+          }
+        ]
+      }
+    }
+  ]
+}
