@@ -1,36 +1,51 @@
 {
   "appTitle": "School Admin",
-  "layout": "tabs",
   "menus": [
     {
       "id": "students",
       "title": "Students",
       "icon": "school",
-      "color": "#8E24AA",
-      "layout": "grid",
       "subMenus": [
         {
           "id": "student_admission",
           "title": "Admission",
-          "description": "Enrol a new student",
           "icon": "how_to_reg",
-          "color": "#8E24AA",
           "form": {
             "title": "New Admission",
             "fields": [
-              { "key": "studentName", "type": "text", "label": "Student Name", "icon": "person", "required": true, "minLength": 3 },
-              { "key": "grade", "type": "number", "label": "Grade", "icon": "grade", "required": true, "pattern": "^([1-9]|1[0-2])$", "patternMessage": "Grade must be 1–12" },
-              { "key": "parentEmail", "type": "email", "label": "Parent Email", "icon": "email", "required": true },
-              { "key": "parentPhone", "type": "phone", "label": "Parent Phone", "icon": "phone", "required": true, "pattern": "^[0-9]{10}$", "patternMessage": "Enter a valid 10 digit number" }
+              {
+                "key": "studentName",
+                "type": "text",
+                "label": "Student Name",
+                "required": true
+              },
+              {
+                "key": "grade",
+                "type": "number",
+                "label": "Grade",
+                "required": true
+              },
+              {
+                "key": "parentEmail",
+                "type": "email",
+                "label": "Parent Email",
+                "required": true
+              },
+              {
+                "key": "parentPhone",
+                "type": "phone",
+                "label": "Parent Phone",
+                "required": true
+              }
             ],
             "buttons": [
-              { "label": "Reset", "action": "reset", "style": "outlined", "icon": "refresh" },
+              {
+                "label": "Reset",
+                "action": "reset"
+              },
               {
                 "label": "Admit",
-                "action": "submit",
-                "style": "filled",
-                "icon": "how_to_reg",
-                "api": { "endpoint": "/api/admissions", "method": "POST", "successMessage": "Admission confirmed" }
+                "action": "submit"
               }
             ]
           }
@@ -38,22 +53,28 @@
         {
           "id": "student_attendance",
           "title": "Attendance",
-          "description": "Mark a student absent",
           "icon": "event_available",
-          "color": "#00ACC1",
           "form": {
             "title": "Mark Absence",
             "fields": [
-              { "key": "rollNo", "type": "text", "label": "Roll No.", "icon": "tag", "required": true },
-              { "key": "date", "type": "text", "label": "Date", "hint": "YYYY-MM-DD", "icon": "calendar_today", "required": true, "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "patternMessage": "Use format YYYY-MM-DD" }
+              {
+                "key": "rollNo",
+                "type": "text",
+                "label": "Roll No.",
+                "required": true
+              },
+              {
+                "key": "date",
+                "type": "text",
+                "label": "Date",
+                "hint": "YYYY-MM-DD",
+                "required": true
+              }
             ],
             "buttons": [
               {
                 "label": "Save",
-                "action": "submit",
-                "style": "filled",
-                "icon": "save",
-                "api": { "endpoint": "/api/attendance", "method": "POST", "successMessage": "Attendance updated" }
+                "action": "submit"
               }
             ]
           }
@@ -64,29 +85,41 @@
       "id": "teachers",
       "title": "Teachers",
       "icon": "person",
-      "color": "#3949AB",
-      "layout": "list",
       "subMenus": [
         {
           "id": "teacher_add",
           "title": "Add Teacher",
-          "description": "Register teaching staff",
           "icon": "person_add",
           "form": {
             "title": "Add Teacher",
             "fields": [
-              { "key": "name", "type": "text", "label": "Name", "icon": "person", "required": true },
-              { "key": "subject", "type": "text", "label": "Subject", "icon": "menu_book", "required": true },
-              { "key": "email", "type": "email", "label": "Email", "icon": "email", "required": true }
+              {
+                "key": "name",
+                "type": "text",
+                "label": "Name",
+                "required": true
+              },
+              {
+                "key": "subject",
+                "type": "text",
+                "label": "Subject",
+                "required": true
+              },
+              {
+                "key": "email",
+                "type": "email",
+                "label": "Email",
+                "required": true
+              }
             ],
             "buttons": [
-              { "label": "Cancel", "action": "cancel", "style": "text" },
+              {
+                "label": "Cancel",
+                "action": "cancel"
+              },
               {
                 "label": "Save",
-                "action": "submit",
-                "style": "filled",
-                "icon": "save",
-                "api": { "endpoint": "/api/teachers", "method": "POST", "successMessage": "Teacher added" }
+                "action": "submit"
               }
             ]
           }
@@ -94,21 +127,28 @@
         {
           "id": "teacher_assign",
           "title": "Assign Class",
-          "description": "Map a teacher to a class",
           "icon": "class",
           "form": {
             "title": "Assign Class",
             "fields": [
-              { "key": "teacherId", "type": "text", "label": "Teacher ID", "icon": "badge", "required": true },
-              { "key": "classSection", "type": "text", "label": "Class & Section", "hint": "e.g. 8-B", "icon": "class", "required": true }
+              {
+                "key": "teacherId",
+                "type": "text",
+                "label": "Teacher ID",
+                "required": true
+              },
+              {
+                "key": "classSection",
+                "type": "text",
+                "label": "Class & Section",
+                "hint": "e.g. 8-B",
+                "required": true
+              }
             ],
             "buttons": [
               {
                 "label": "Assign",
-                "action": "submit",
-                "style": "filled",
-                "icon": "check",
-                "api": { "endpoint": "/api/assignments", "method": "POST", "successMessage": "Class assigned" }
+                "action": "submit"
               }
             ]
           }
@@ -119,13 +159,10 @@
       "id": "exams",
       "title": "Exams",
       "icon": "assignment",
-      "color": "#D81B60",
-      "layout": "expandable",
       "subMenus": [
         {
           "id": "exams_schedule",
           "title": "Schedule",
-          "description": "Plan upcoming exams",
           "icon": "event",
           "subMenus": [
             {
@@ -135,17 +172,30 @@
               "form": {
                 "title": "Create Exam",
                 "fields": [
-                  { "key": "subject", "type": "text", "label": "Subject", "icon": "menu_book", "required": true },
-                  { "key": "date", "type": "text", "label": "Date", "hint": "YYYY-MM-DD", "icon": "calendar_today", "required": true, "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "patternMessage": "Use format YYYY-MM-DD" },
-                  { "key": "maxMarks", "type": "number", "label": "Max Marks", "icon": "numbers", "required": true }
+                  {
+                    "key": "subject",
+                    "type": "text",
+                    "label": "Subject",
+                    "required": true
+                  },
+                  {
+                    "key": "date",
+                    "type": "text",
+                    "label": "Date",
+                    "hint": "YYYY-MM-DD",
+                    "required": true
+                  },
+                  {
+                    "key": "maxMarks",
+                    "type": "number",
+                    "label": "Max Marks",
+                    "required": true
+                  }
                 ],
                 "buttons": [
                   {
                     "label": "Schedule",
-                    "action": "submit",
-                    "style": "filled",
-                    "icon": "event",
-                    "api": { "endpoint": "/api/exams", "method": "POST", "successMessage": "Exam scheduled" }
+                    "action": "submit"
                   }
                 ]
               }
@@ -155,7 +205,6 @@
         {
           "id": "exams_results",
           "title": "Results",
-          "description": "Publish marks",
           "icon": "emoji_events",
           "subMenus": [
             {
@@ -165,16 +214,22 @@
               "form": {
                 "title": "Publish Result",
                 "fields": [
-                  { "key": "examId", "type": "text", "label": "Exam ID", "icon": "tag", "required": true },
-                  { "key": "notes", "type": "multiline", "label": "Notes for parents", "icon": "notes", "maxLines": 3 }
+                  {
+                    "key": "examId",
+                    "type": "text",
+                    "label": "Exam ID",
+                    "required": true
+                  },
+                  {
+                    "key": "notes",
+                    "type": "multiline",
+                    "label": "Notes for parents"
+                  }
                 ],
                 "buttons": [
                   {
                     "label": "Publish",
-                    "action": "submit",
-                    "style": "filled",
-                    "icon": "publish",
-                    "api": { "endpoint": "/api/results", "method": "POST", "successMessage": "Results published" }
+                    "action": "submit"
                   }
                 ]
               }
@@ -187,21 +242,30 @@
       "id": "fees",
       "title": "Fees",
       "icon": "account_balance_wallet",
-      "color": "#43A047",
       "form": {
         "title": "Record Fee Payment",
         "fields": [
-          { "key": "rollNo", "type": "text", "label": "Roll No.", "icon": "tag", "required": true },
-          { "key": "amount", "type": "number", "label": "Amount (₹)", "icon": "currency_rupee", "required": true }
+          {
+            "key": "rollNo",
+            "type": "text",
+            "label": "Roll No.",
+            "required": true
+          },
+          {
+            "key": "amount",
+            "type": "number",
+            "label": "Amount (₹)",
+            "required": true
+          }
         ],
         "buttons": [
-          { "label": "Reset", "action": "reset", "style": "outlined", "icon": "refresh" },
+          {
+            "label": "Reset",
+            "action": "reset"
+          },
           {
             "label": "Record",
-            "action": "submit",
-            "style": "filled",
-            "icon": "payments",
-            "api": { "endpoint": "/api/fees", "method": "POST", "successMessage": "Payment recorded" }
+            "action": "submit"
           }
         ]
       }

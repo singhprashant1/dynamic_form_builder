@@ -1,14 +1,10 @@
 {
   "appTitle": "Inventory",
-  "layout": "grid",
   "menus": [
     {
       "id": "products",
       "title": "Products",
-      "description": "Catalogue and stock levels",
       "icon": "inventory_2",
-      "color": "#EF6C00",
-      "layout": "tabs",
       "subMenus": [
         {
           "id": "product_add",
@@ -17,19 +13,39 @@
           "form": {
             "title": "Add Product",
             "fields": [
-              { "key": "sku", "type": "text", "label": "SKU", "hint": "e.g. SKU-1001", "icon": "qr_code", "required": true, "pattern": "^SKU-\\d+$", "patternMessage": "Format: SKU-<number>" },
-              { "key": "name", "type": "text", "label": "Product Name", "icon": "label", "required": true },
-              { "key": "price", "type": "number", "label": "Price (₹)", "icon": "currency_rupee", "required": true },
-              { "key": "description", "type": "multiline", "label": "Description", "icon": "notes", "maxLength": 300, "maxLines": 4 }
+              {
+                "key": "sku",
+                "type": "text",
+                "label": "SKU",
+                "hint": "e.g. SKU-1001",
+                "required": true
+              },
+              {
+                "key": "name",
+                "type": "text",
+                "label": "Product Name",
+                "required": true
+              },
+              {
+                "key": "price",
+                "type": "number",
+                "label": "Price (₹)",
+                "required": true
+              },
+              {
+                "key": "description",
+                "type": "multiline",
+                "label": "Description"
+              }
             ],
             "buttons": [
-              { "label": "Reset", "action": "reset", "style": "outlined", "icon": "refresh" },
+              {
+                "label": "Reset",
+                "action": "reset"
+              },
               {
                 "label": "Add Product",
-                "action": "submit",
-                "style": "filled",
-                "icon": "add",
-                "api": { "endpoint": "/api/products", "method": "POST", "successMessage": "Product added to catalogue" }
+                "action": "submit"
               }
             ]
           }
@@ -41,16 +57,23 @@
           "form": {
             "title": "Update Stock",
             "fields": [
-              { "key": "sku", "type": "text", "label": "SKU", "icon": "qr_code", "required": true },
-              { "key": "quantity", "type": "number", "label": "New Quantity", "icon": "numbers", "required": true }
+              {
+                "key": "sku",
+                "type": "text",
+                "label": "SKU",
+                "required": true
+              },
+              {
+                "key": "quantity",
+                "type": "number",
+                "label": "New Quantity",
+                "required": true
+              }
             ],
             "buttons": [
               {
                 "label": "Update",
-                "action": "submit",
-                "style": "filled",
-                "icon": "check",
-                "api": { "endpoint": "/api/stock", "method": "PUT", "successMessage": "Stock updated" }
+                "action": "submit"
               }
             ]
           }
@@ -60,32 +83,48 @@
     {
       "id": "warehouses",
       "title": "Warehouses",
-      "description": "Transfers and audits",
       "icon": "warehouse",
-      "color": "#6D4C41",
-      "layout": "list",
       "subMenus": [
         {
           "id": "warehouse_transfer",
           "title": "Stock Transfer",
-          "description": "Move stock between warehouses",
           "icon": "swap_horiz",
           "form": {
             "title": "Stock Transfer",
             "fields": [
-              { "key": "fromWarehouse", "type": "text", "label": "From Warehouse", "icon": "warehouse", "required": true },
-              { "key": "toWarehouse", "type": "text", "label": "To Warehouse", "icon": "warehouse", "required": true },
-              { "key": "sku", "type": "text", "label": "SKU", "icon": "qr_code", "required": true },
-              { "key": "quantity", "type": "number", "label": "Quantity", "icon": "numbers", "required": true }
+              {
+                "key": "fromWarehouse",
+                "type": "text",
+                "label": "From Warehouse",
+                "required": true
+              },
+              {
+                "key": "toWarehouse",
+                "type": "text",
+                "label": "To Warehouse",
+                "required": true
+              },
+              {
+                "key": "sku",
+                "type": "text",
+                "label": "SKU",
+                "required": true
+              },
+              {
+                "key": "quantity",
+                "type": "number",
+                "label": "Quantity",
+                "required": true
+              }
             ],
             "buttons": [
-              { "label": "Cancel", "action": "cancel", "style": "text" },
+              {
+                "label": "Cancel",
+                "action": "cancel"
+              },
               {
                 "label": "Transfer",
-                "action": "submit",
-                "style": "filled",
-                "icon": "swap_horiz",
-                "api": { "endpoint": "/api/transfers", "method": "POST", "successMessage": "Transfer created" }
+                "action": "submit"
               }
             ]
           }
@@ -93,21 +132,26 @@
         {
           "id": "warehouse_audit",
           "title": "Stock Audit",
-          "description": "Record a physical count",
           "icon": "fact_check",
           "form": {
             "title": "Stock Audit",
             "fields": [
-              { "key": "warehouse", "type": "text", "label": "Warehouse", "icon": "warehouse", "required": true },
-              { "key": "remarks", "type": "multiline", "label": "Remarks", "icon": "notes", "maxLines": 4 }
+              {
+                "key": "warehouse",
+                "type": "text",
+                "label": "Warehouse",
+                "required": true
+              },
+              {
+                "key": "remarks",
+                "type": "multiline",
+                "label": "Remarks"
+              }
             ],
             "buttons": [
               {
                 "label": "Submit Audit",
-                "action": "submit",
-                "style": "filled",
-                "icon": "fact_check",
-                "api": { "endpoint": "/api/audits", "method": "POST", "successMessage": "Audit recorded" }
+                "action": "submit"
               }
             ]
           }
@@ -117,15 +161,11 @@
     {
       "id": "suppliers",
       "title": "Suppliers",
-      "description": "Vendors and purchase orders",
       "icon": "local_shipping",
-      "color": "#5E35B1",
-      "layout": "expandable",
       "subMenus": [
         {
           "id": "suppliers_vendors",
           "title": "Vendors",
-          "description": "Manage supplier list",
           "icon": "handshake",
           "subMenus": [
             {
@@ -135,17 +175,28 @@
               "form": {
                 "title": "Add Supplier",
                 "fields": [
-                  { "key": "company", "type": "text", "label": "Company", "icon": "business", "required": true },
-                  { "key": "email", "type": "email", "label": "Email", "icon": "email", "required": true },
-                  { "key": "phone", "type": "phone", "label": "Phone", "icon": "phone", "pattern": "^[0-9]{10}$", "patternMessage": "Enter a valid 10 digit number" }
+                  {
+                    "key": "company",
+                    "type": "text",
+                    "label": "Company",
+                    "required": true
+                  },
+                  {
+                    "key": "email",
+                    "type": "email",
+                    "label": "Email",
+                    "required": true
+                  },
+                  {
+                    "key": "phone",
+                    "type": "phone",
+                    "label": "Phone"
+                  }
                 ],
                 "buttons": [
                   {
                     "label": "Save",
-                    "action": "submit",
-                    "style": "filled",
-                    "icon": "save",
-                    "api": { "endpoint": "/api/suppliers", "method": "POST", "successMessage": "Supplier saved" }
+                    "action": "submit"
                   }
                 ]
               }
@@ -155,7 +206,6 @@
         {
           "id": "suppliers_po",
           "title": "Purchase Orders",
-          "description": "Raise POs",
           "icon": "request_quote",
           "subMenus": [
             {
@@ -165,18 +215,33 @@
               "form": {
                 "title": "Create Purchase Order",
                 "fields": [
-                  { "key": "supplier", "type": "text", "label": "Supplier", "icon": "business", "required": true },
-                  { "key": "sku", "type": "text", "label": "SKU", "icon": "qr_code", "required": true },
-                  { "key": "quantity", "type": "number", "label": "Quantity", "icon": "numbers", "required": true }
+                  {
+                    "key": "supplier",
+                    "type": "text",
+                    "label": "Supplier",
+                    "required": true
+                  },
+                  {
+                    "key": "sku",
+                    "type": "text",
+                    "label": "SKU",
+                    "required": true
+                  },
+                  {
+                    "key": "quantity",
+                    "type": "number",
+                    "label": "Quantity",
+                    "required": true
+                  }
                 ],
                 "buttons": [
-                  { "label": "Reset", "action": "reset", "style": "outlined", "icon": "refresh" },
+                  {
+                    "label": "Reset",
+                    "action": "reset"
+                  },
                   {
                     "label": "Raise PO",
-                    "action": "submit",
-                    "style": "filled",
-                    "icon": "send",
-                    "api": { "endpoint": "/api/purchase-orders", "method": "POST", "successMessage": "Purchase order raised" }
+                    "action": "submit"
                   }
                 ]
               }
@@ -188,28 +253,21 @@
     {
       "id": "sync",
       "title": "ERP Sync",
-      "description": "Push stock to ERP (demo error)",
       "icon": "sync",
-      "color": "#C62828",
       "form": {
         "title": "Sync with ERP",
-        "description": "This endpoint is mocked to fail so you can see error handling.",
         "fields": [
-          { "key": "token", "type": "password", "label": "ERP Access Token", "icon": "key", "required": true }
+          {
+            "key": "token",
+            "type": "password",
+            "label": "ERP Access Token",
+            "required": true
+          }
         ],
         "buttons": [
           {
             "label": "Sync Now",
-            "action": "submit",
-            "style": "filled",
-            "icon": "sync",
-            "api": {
-              "endpoint": "/api/erp/sync",
-              "method": "POST",
-              "successMessage": "Synced",
-              "errorMessage": "ERP server is unreachable. Please try again.",
-              "mock": { "fail": true, "delayMs": 1500 }
-            }
+            "action": "submit"
           }
         ]
       }
