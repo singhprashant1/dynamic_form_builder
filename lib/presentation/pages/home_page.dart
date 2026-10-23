@@ -118,7 +118,7 @@ class _PickFromMenuHint extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Tap the ☰ icon at the top left to see all options.',
+              'Tap the menu icon at the top left to see all options.',
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium,
             ),

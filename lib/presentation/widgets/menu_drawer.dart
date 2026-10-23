@@ -42,6 +42,9 @@ class MenuDrawer extends StatelessWidget {
     final indent = EdgeInsets.only(left: 16.0 + depth * 16, right: 16);
     if (item.subMenus.isNotEmpty) {
       return ExpansionTile(
+        // No borders: avoids a doubled line under the drawer header.
+        shape: const Border(),
+        collapsedShape: const Border(),
         tilePadding: indent,
         leading: Icon(iconFor(item.icon)),
         title: Text(item.title),
